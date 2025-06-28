@@ -1,12 +1,46 @@
 const express = require('express');
 const Post = require("../models/post");
+const multer = require("multer");
+const fs = require('fs');
+
 
 const router = express.Router();
 
-router.post("", (req, res) => {
+const MIME_TYPE_MAP = {
+  'image/png': 'png',
+  'image/jpeg': 'jpg',
+  'image/jpg': 'jpg'
+}
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const isValid = MIME_TYPE_MAP[file.mimetype];
+    let error = !isValid ? new Error('Invalid mime type') : null;
+
+    if (!error) {
+      const uploadPath = 'backend/images';
+      if (!fs.existsSync(uploadPath)) {
+        fs.mkdirSync(uploadPath, { recursive: true });
+      }
+    }
+
+    cb(error, 'backend/images')
+  },
+  filename: (req, file, cb) => {
+    const name = file.originalname.toLocaleString().split(' ').join('-');
+    const ext = MIME_TYPE_MAP[file.mimetype];
+
+    cb(null, name + '-' + Date.now() + '.' + ext);
+  }
+})
+
+router.post("", multer({ storage: storage }).single('image'), (req, res) => {
+  const url = req.protocol + '://' + req.get('host');
+
   const post = new Post({
     title: req.body.title,
-    content: req.body.content
+    content: req.body.content,
+    imagePath: url + '/images/' + req.file.filename,
   });
 
   post.save().then(result => {
@@ -27,11 +61,14 @@ router.get("", (req, res) => {
     })
 });
 
-router.patch("/:id", (req, res) => {
+router.patch("/:id",  multer({ storage: storage }).single('image'), (req, res) => {
+  const url = req.protocol + '://' + req.get('host');
+
   const post = new Post({
     _id: req.params.id,
     title: req.body.title,
     content: req.body.content,
+    imagePath: req.file ? url + '/images/' + req.file.filename : req.body.imagePath,
   })
 
   Post.updateOne({ _id: req.params.id }, post)
