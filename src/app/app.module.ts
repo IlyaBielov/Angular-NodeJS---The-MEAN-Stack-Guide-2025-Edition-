@@ -13,6 +13,9 @@ import { AppComponent } from './app.component';
 import { PostCreateComponent } from './posts/post-create/post-create.component';
 import { HeaderComponent } from './header/header.component';
 import { PostListComponent } from './posts/post-list/post-list.component';
+import { RouterLink, RouterOutlet } from '@angular/router';
+import { AppRoutingModule } from './app-routing.module';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -24,13 +27,17 @@ import { PostListComponent } from './posts/post-list/post-list.component';
   bootstrap: [AppComponent],
   imports: [
     BrowserModule,
+    AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule,
     MatInputModule,
     MatCardModule,
     MatButtonModule,
     MatToolbarModule,
-    MatExpansionModule
+    MatExpansionModule,
+    RouterOutlet,
+    RouterLink,
+    MatProgressSpinnerModule
   ],
   providers: [
     provideHttpClient(withInterceptorsFromDi())
