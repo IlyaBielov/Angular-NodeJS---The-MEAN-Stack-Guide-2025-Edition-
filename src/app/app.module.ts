@@ -17,6 +17,7 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgOptimizedImage } from '@angular/common';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { NgOptimizedImage } from '@angular/common';
     RouterLink,
     MatProgressSpinnerModule,
     ReactiveFormsModule,
-    NgOptimizedImage
+    NgOptimizedImage,
+    MatPaginatorModule
   ],
   providers: [
     provideHttpClient(withInterceptorsFromDi())
