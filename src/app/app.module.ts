@@ -18,6 +18,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgOptimizedImage } from '@angular/common';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { SignupComponent } from './auth/signup/signup.component';
+import { LoginComponent } from './auth/login/login.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatProgressSpinnerModule,
     ReactiveFormsModule,
     NgOptimizedImage,
-    MatPaginatorModule
+    MatPaginatorModule,
+    SignupComponent,
+    LoginComponent
   ],
   providers: [
     provideHttpClient(withInterceptorsFromDi())
