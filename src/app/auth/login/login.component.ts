@@ -29,11 +29,7 @@ export class LoginComponent {
 
   onLogin(form: NgForm) {
     if (form.invalid) return;
-
-    this.authService
-      .login(form.value.email, form.value.password)
-      .subscribe(res => {
-        console.log(res);
-      })
+    this.isLoading.set(true);
+    this.authService.login(form.value.email, form.value.password)
   }
 }

@@ -1,17 +1,31 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 import { Post } from "../post.model";
 import { OnInit } from "@angular/core";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 
 import { PostsService } from "../posts.service";
 import { mimeTypeValidator } from './mime-type.validator';
+import { MatCard } from '@angular/material/card';
+import { MatError, MatFormField, MatInput } from '@angular/material/input';
+import { MatButton } from '@angular/material/button';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 @Component({
-    selector: "app-post-create",
-    templateUrl: "./post-create.component.html",
-    styleUrls: ["./post-create.component.css"],
-    standalone: false
+  selector: 'app-post-create',
+  templateUrl: './post-create.component.html',
+  styleUrls: ['./post-create.component.css'],
+  imports: [
+    MatFormField,
+    MatCard,
+    ReactiveFormsModule,
+    MatInput,
+    MatFormField,
+    MatError,
+    MatButton,
+    MatProgressSpinner
+  ],
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PostCreateComponent implements OnInit {
   public postsService = inject(PostsService);

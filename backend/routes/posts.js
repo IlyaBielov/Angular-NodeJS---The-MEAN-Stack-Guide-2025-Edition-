@@ -52,7 +52,7 @@ router.post("", checkAuth, multer({ storage: storage }).single('image'), (req, r
   });
 });
 
-router.get("", checkAuth, (req, res) => {
+router.get("", (req, res) => {
   const pageSize = +req.query.pagesize;
   const currentPage = +req.query.page;
   const postQuery = Post.find();

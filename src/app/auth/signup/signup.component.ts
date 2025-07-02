@@ -30,10 +30,7 @@ export class SignupComponent {
   onSignUp(form: NgForm) {
     if (form.invalid) return;
 
-    this.authService
-      .signup(form.value.email, form.value.password)
-      .subscribe(res => {
-        console.log(res);
-      })
+    this.isLoading.set(true);
+    this.authService.signup(form.value.email, form.value.password)
   }
 }

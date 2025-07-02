@@ -17,11 +17,9 @@
         }
       </mat-form-field>
 
-      <button
-        mat-raised-button
-        color="accent"
-        type="submit"
-      >Signup</button>
+      @if (!isLoading()) {
+        <button mat-raised-button color="accent" type="submit">Login</button>
+      }
     </form>
   }
 </mat-card>

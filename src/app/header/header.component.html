@@ -4,14 +4,23 @@
   <span class="spacer"></span>
 
   <ul>
-    <li>
-      <a mat-button routerLink="/create" routerLinkActive="mat-accent">New Post</a>
-    </li>
-    <li>
-      <a mat-button routerLink="/login" routerLinkActive="mat-accent">Login</a>
-    </li>
-    <li>
-      <a mat-button routerLink="/signup" routerLinkActive="mat-accent">SignUp</a>
-    </li>
+
+    @if (isAuthenticated()) {
+      <li>
+        <a mat-button routerLink="/create" routerLinkActive="mat-accent">New Post</a>
+      </li>
+
+      <li>
+        <button mat-button (click)="onLogout()">Logout</button>
+      </li>
+    } @else {
+      <li>
+        <a mat-button routerLink="/login" routerLinkActive="mat-accent">Login</a>
+      </li>
+
+      <li>
+        <a mat-button routerLink="/signup" routerLinkActive="mat-accent">SignUp</a>
+      </li>
+    }
   </ul>
 </mat-toolbar>
