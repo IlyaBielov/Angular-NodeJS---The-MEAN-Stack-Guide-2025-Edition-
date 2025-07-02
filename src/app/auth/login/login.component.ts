@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatCard } from '@angular/material/card';
 import { MatError, MatFormField, MatInput } from '@angular/material/input';
 import { FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -22,9 +23,17 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent {
+  private authService = inject(AuthService);
+
   isLoading = signal(false);
 
-  onLogin(loginForm: NgForm) {
-    console.log(loginForm.value);
+  onLogin(form: NgForm) {
+    if (form.invalid) return;
+
+    this.authService
+      .login(form.value.email, form.value.password)
+      .subscribe(res => {
+        console.log(res);
+      })
   }
 }
